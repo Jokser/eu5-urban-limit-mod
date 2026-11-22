@@ -61,5 +61,5 @@ Historical cities that the map flags cannot tell from empty desert:
 Possible methods: a `location_key` list, or a location flag / modifier set on game start for the listed keys.
 
 ## Credits
-The province caps, their tooltips and the original idea come from **Urban limit** by its original author
-(Steam Workshop id 3688963094).
+The province caps, their tooltips and the original idea come from **Urban limit** by **Emperor VI**, part of his
+Total Realism Mod (Steam Workshop id 3688963094).

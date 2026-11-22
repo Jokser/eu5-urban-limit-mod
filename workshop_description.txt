@@ -1,0 +1,48 @@
+[h1]Urban Limit Reworked[/h1]
+
+In vanilla, every location can sooner or later become a town or a city, and by the late game whole countries are covered in them. This mod keeps urbanization limited and makes it follow geography: towns and cities grow where climate, water and local resources could historically support them, and deserts, tundra and bare mountains stay rural.
+
+It is a rework of [b]Urban limit[/b] by [b]Emperor VI[/b] (part of his Total Realism Mod). The province caps come from the original; the geography rules have been rewritten from scratch.
+
+[h2]Province caps (from the original)[/h2]
+[list]
+[*]A province with 1-3 locations can have one urban centre: a city or a town.
+[*]A province with 4-5 locations can have one city and one town.
+[*]A province with 6 or more locations can have one city and up to two towns.
+[/list]
+Large empires cannot turn every location into a city.
+
+[h2]Geography: one rule per climate[/h2]
+Water means a river, a harbour of at least 0.25 or a lake shore. "Any water" also counts a plain sea coast.
+[table]
+[tr][th]Climate[/th][th]Town[/th][th]City[/th][/tr]
+[tr][td]Arctic[/td][td]not in mountains, with a good harbour[/td][td]never[/td][/tr]
+[tr][td]Subpolar[/td][td]not in mountains, with water[/td][td]flat land, plateau or wetlands, with a river, a good harbour or a lake[/td][/tr]
+[tr][td]Continental, semi-arid[/td][td]anywhere but bare mountains; mountains need water[/td][td]farmland or grassland, or water[/td][/tr]
+[tr][td]Mediterranean, oceanic, subtropical[/td][td]anywhere[/td][td]not in mountains, or mountains with water[/td][/tr]
+[tr][td]Arid, cold arid[/td][td]any water, or farmland outside mountains[/td][td]not in mountains, with any water or farmland[/td][/tr]
+[tr][td]Tropical[/td][td]not in mountains, with any water, farmland or grassland, or open hills and plateaus[/td][td]not in mountains, with any water, farmland or grassland[/td][/tr]
+[/table]
+
+Two exceptions on top of the table:
+[list]
+[*]A [b]food resource[/b] (wheat, rice, fruit, millet, legumes, maize, potato) allows a town outside mountains and the arctic: a fertile oasis or river valley feeds a market town.
+[*]A [b]valuable resource[/b] (silk, saffron, cotton, gems, silver, gold, incense) allows a town and a city (no city in the arctic): trade wealth builds cities even in hard country.
+[/list]
+Checked against the 1337 start: 36 of the 1067 historical towns and cities fail the rules, mostly oases and desert trade cities whose rivers or wells are not on the map. They keep their rank; the rules only decide new upgrades.
+
+[h2]Clear tooltips[/h2]
+When you try to upgrade a location, the tooltip shows the province cap and the one geography rule for that location's climate, so you can see why a town cannot grow.
+
+[h2]Up to date with the game[/h2]
+The location rank file is rebuilt from the current game version, so all vanilla rank bonuses (trade centre power, food production, mills and so on) are kept. The original's copy of this file had fallen behind the game.
+
+[h2]Compatibility[/h2]
+[list]
+[*][b]Do not use together with the original Urban limit.[/b] They share the same triggers.
+[*]Replaces [i]in_game/common/location_ranks/00_default.txt[/i] whole. Mods that change the same file will conflict.
+[*]The rules only decide upgrades: existing towns and cities keep their rank.
+[/list]
+
+[h2]Credits[/h2]
+Province caps, their tooltips and the original idea: [b]Urban limit[/b] by [b]Emperor VI[/b].
