@@ -2,7 +2,16 @@
 
 In vanilla, every location can sooner or later become a town or a city, and by the late game whole countries are covered in them. This mod keeps urbanization limited and makes it follow geography: towns and cities grow where climate, water and local resources could historically support them, and deserts, tundra and bare mountains stay rural.
 
-It is a rework of [b]Urban limit[/b] by [b]Emperor VI[/b] (part of his Total Realism Mod). The province caps come from the original; the geography rules have been rewritten from scratch.
+It is a rework of [b]Urban limit[/b] by [b]Emperor VI[/b] (part of his Total Realism Mod). The idea and the province caps come from the original: cities do not grow everywhere, only where conditions allow them. The geography rules are rewritten.
+
+[h2]What changed compared with Urban limit[/h2]
+[list]
+[*][b]One clear rule per climate[/b] instead of separate terrain, vegetation and climate gates. Each of the game's climates has its own conditions for a town and for a city.
+[*][b]Water matters:[/b] rivers, harbours and lake shores let towns and cities grow in places that would otherwise be too harsh, as the river valleys and ports of history did.
+[*][b]Local resources matter:[/b] farming land feeds market towns, and trade goods such as silk, saffron, incense or silver build cities even in hard country.
+[*][b]Tooltips explain the rule[/b] for the location's climate when an upgrade is not allowed.
+[*][b]The location rank file follows the current game version[/b], so no vanilla rank bonuses are lost.
+[/list]
 
 [h2]Province caps (from the original)[/h2]
 [list]
@@ -30,12 +39,6 @@ Two exceptions on top of the table:
 [*]A [b]valuable resource[/b] (silk, saffron, cotton, gems, silver, gold, incense) allows a town and a city (no city in the arctic): trade wealth builds cities even in hard country.
 [/list]
 Checked against the 1337 start: 36 of the 1067 historical towns and cities fail the rules, mostly oases and desert trade cities whose rivers or wells are not on the map. They keep their rank; the rules only decide new upgrades.
-
-[h2]Clear tooltips[/h2]
-When you try to upgrade a location, the tooltip shows the province cap and the one geography rule for that location's climate, so you can see why a town cannot grow.
-
-[h2]Up to date with the game[/h2]
-The location rank file is rebuilt from the current game version, so all vanilla rank bonuses (trade centre power, food production, mills and so on) are kept. The original's copy of this file had fallen behind the game.
 
 [h2]Compatibility[/h2]
 [list]
