@@ -1,0 +1,175 @@
+﻿# ============================================================================
+# Urban limit - WHERE towns/cities may be founded (Jokser rework v2, 2026-11).
+# Same-path override of the author's file. Structure: ONE branch per climate,
+# each with its own town and city rule, plus two global exceptions.
+#
+# Public interface (called by location_ranks/00_default.txt):
+#   location_allows_town_final / location_allows_city_final
+# A city is always a subset of town (city can only be upgraded from a town).
+#
+# Inputs the game exposes: climate, topography, vegetation, raw_material,
+# has_river, is_coastal, is_adjacent_to_lake, natural_harbor_suitability
+# (base scale: 0 flat coast/Barcelona, 0.25 bay/Palma, 0.5 river port/Sevilla,
+# 0.75 deep bay/San Sebastian).
+# ============================================================================
+
+# ----- water -----
+loc_urb_water = {               # river, a real harbour (bay or better) or a lake shore
+	OR = {
+		has_river = yes
+		modifier:natural_harbor_suitability >= 0.25
+		is_adjacent_to_lake = yes
+	}
+}
+loc_urb_any_water = {           # river, ANY sea coast or a lake shore (arid & tropical)
+	OR = {
+		has_river = yes
+		is_coastal = yes
+		is_adjacent_to_lake = yes
+	}
+}
+loc_urb_strong_water = {        # navigable river, river-port-grade harbour or lake (subpolar cities)
+	OR = {
+		has_river = yes
+		modifier:natural_harbor_suitability >= 0.50
+		is_adjacent_to_lake = yes
+	}
+}
+
+# ----- terrain / vegetation helpers -----
+loc_urb_mountains = { topography = mountains }
+loc_urb_open_fields = {         # farmland or grassland
+	OR = { vegetation = farmland  vegetation = grasslands }
+}
+
+# ----- global exception 1: arable food RGO -> a market town can grow (not in mountains, not arctic) -----
+loc_urb_food_rgo = {
+	OR = {
+		raw_material = goods:wheat
+		raw_material = goods:rice
+		raw_material = goods:fruit
+		raw_material = goods:millet
+		raw_material = goods:legumes
+		raw_material = goods:maize
+		raw_material = goods:potato
+	}
+}
+
+# ----- global exception 2: very valuable RGO -> town AND city anywhere (Yazd, Isfahan, Tabriz,
+#       Nishapur silk/gems; Kutna Hora, Goslar silver; Dhofar incense). City not in the arctic. -----
+loc_urb_valuable_rgo = {
+	OR = {
+		raw_material = goods:silk
+		raw_material = goods:saffron
+		raw_material = goods:cotton
+		raw_material = goods:gems
+		raw_material = goods:silver
+		raw_material = goods:goods_gold
+		raw_material = goods:incense
+	}
+}
+
+# ============================================================================
+# Per-climate rules (pure logic, no tooltips). location_ranks/00_default.txt
+# picks the branch for the location's climate with trigger_if and wraps the
+# rule in ONE custom_tooltip line (the rank-upgrade UI only shows a flat list
+# and cannot flatten nested OR/AND: "Current level cannot be automatically
+# flattened").
+# ============================================================================
+
+# ----- TOWN -----
+urb_town_arctic = {
+	OR = {
+		AND = { loc_urb_mountains = no  modifier:natural_harbor_suitability >= 0.25 }
+		loc_urb_valuable_rgo = yes
+	}
+}
+urb_town_subpolar = {
+	OR = {
+		AND = { loc_urb_mountains = no  OR = { loc_urb_water = yes  loc_urb_food_rgo = yes } }
+		loc_urb_valuable_rgo = yes
+	}
+}
+urb_town_continental = {        # continental, cold_semi_arid, hot_semi_arid
+	OR = { loc_urb_mountains = no  loc_urb_water = yes  loc_urb_valuable_rgo = yes }
+}
+urb_town_mild = { always = yes } # mediterranean, oceanic, subtropical
+urb_town_arid = {               # arid, cold_arid
+	OR = {
+		loc_urb_any_water = yes
+		AND = { loc_urb_mountains = no  OR = { vegetation = farmland  loc_urb_food_rgo = yes } }
+		loc_urb_valuable_rgo = yes
+	}
+}
+urb_town_tropical = {
+	OR = {
+		AND = {
+			loc_urb_mountains = no
+			OR = {
+				loc_urb_any_water = yes
+				loc_urb_open_fields = yes
+				AND = { OR = { topography = plateau  topography = hills }  NOT = { vegetation = jungle } }
+				loc_urb_food_rgo = yes
+			}
+		}
+		loc_urb_valuable_rgo = yes
+	}
+}
+
+# ----- CITY (location_allows_city_final also requires the town rule) -----
+urb_city_arctic = { always = no }
+urb_city_subpolar = {
+	OR = {
+		AND = { loc_urb_mountains = no  NOT = { topography = hills }  loc_urb_strong_water = yes }
+		loc_urb_valuable_rgo = yes
+	}
+}
+urb_city_continental = {
+	OR = { loc_urb_open_fields = yes  loc_urb_water = yes  loc_urb_valuable_rgo = yes }
+}
+urb_city_mild = {
+	OR = { loc_urb_mountains = no  loc_urb_water = yes  loc_urb_valuable_rgo = yes }
+}
+urb_city_arid = {
+	OR = {
+		AND = { loc_urb_mountains = no  OR = { loc_urb_any_water = yes  vegetation = farmland } }
+		loc_urb_valuable_rgo = yes
+	}
+}
+urb_city_tropical = {
+	OR = {
+		AND = { loc_urb_mountains = no  OR = { loc_urb_any_water = yes  loc_urb_open_fields = yes } }
+		loc_urb_valuable_rgo = yes
+	}
+}
+
+# ----- climate groups -----
+urb_clim_continental = { OR = { climate = continental  climate = cold_semi_arid  climate = hot_semi_arid } }
+urb_clim_mild        = { OR = { climate = mediterranean  climate = oceanic  climate = subtropical } }
+urb_clim_arid        = { OR = { climate = arid  climate = cold_arid } }
+
+# ============================================================================
+# PUBLIC (pure logic; location_ranks uses its own tooltip chain over the same rules)
+# ============================================================================
+location_allows_town_final = {
+	OR = {
+		AND = { climate = arctic             urb_town_arctic = yes }
+		AND = { climate = subpolar           urb_town_subpolar = yes }
+		AND = { urb_clim_continental = yes   urb_town_continental = yes }
+		AND = { urb_clim_mild = yes          urb_town_mild = yes }
+		AND = { urb_clim_arid = yes          urb_town_arid = yes }
+		AND = { climate = tropical           urb_town_tropical = yes }
+	}
+}
+
+location_allows_city_final = {
+	location_allows_town_final = yes
+	OR = {
+		AND = { climate = arctic             urb_city_arctic = yes }
+		AND = { climate = subpolar           urb_city_subpolar = yes }
+		AND = { urb_clim_continental = yes   urb_city_continental = yes }
+		AND = { urb_clim_mild = yes          urb_city_mild = yes }
+		AND = { urb_clim_arid = yes          urb_city_arid = yes }
+		AND = { climate = tropical           urb_city_tropical = yes }
+	}
+}

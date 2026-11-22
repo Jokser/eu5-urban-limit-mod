@@ -1,0 +1,4 @@
+# editor / OS clutter
+*.tmp
+Thumbs.db
+.vscode/

@@ -1,0 +1,162 @@
+# ============================================================================
+# Urban limit - WHERE towns/cities may be founded. Reworked for full 14-17th c.
+# historical correspondence (Jokser). Overrides the author's file at the same path.
+#
+# The game exposes only climate / topography / vegetation / water. That cannot see
+# groundwater (qanats/springs), snowmelt irrigation or caravan trade - which is why
+# real arid cities (Konya, Ankara, Yazd, Isfahan, Tabriz, Samarkand, Marrakesh)
+# existed without a river. Two proxies recover them faithfully:
+#   * In arid/cold_arid climates, PLATEAU & HILLS = the urbanised highland belt
+#     (Anatolia/Iran/Central Asia), whereas FLATLAND = the empty erg deserts.
+#   * FARMLAND vegetation in an arid climate = irrigation is already present.
+# Master rule: water (navigable river OR sea coast OR lake shore) enables urbanism;
+# arctic always needs water (no far-north qanat cities). A short named-exception list
+# covers land-locked qanat/oasis cities the flags cannot tell from empty desert.
+#
+# Public interface (called by location_ranks): location_allows_town_final /
+# location_allows_city_final.
+# ============================================================================
+
+# ----- water access -----
+loc_has_water = {              # any navigable water: river, sea coast, or lake shore
+	OR = {
+		has_river = yes
+		is_coastal = yes
+		is_adjacent_to_lake = yes
+	}
+}
+loc_has_strong_water = {       # a navigable river or a genuine sea harbor
+	OR = {
+		has_river = yes
+		modifier:natural_harbor_suitability >= 0.50
+	}
+}
+
+# ----- climate groups -----
+loc_climate_temperate = {
+	OR = { climate = mediterranean  climate = subtropical  climate = oceanic  climate = continental }
+}
+loc_climate_arid = {           # hot & cold deserts/steppe (NOT arctic): qanat/oasis/trade urbanism
+	OR = { climate = arid  climate = cold_arid }
+}
+
+# ----- land that can be built on at all (excludes sea/lake/wasteland) -----
+loc_is_buildable_land = {
+	OR = { topography = flatland  topography = hills  topography = plateau  topography = wetlands  topography = mountains }
+}
+
+# ----- named exceptions: real historical cities on qanat/spring oases or isolated highlands
+#       that the climate/topography/vegetation/water flags CANNOT distinguish from empty desert
+#       (no river, coast or lake). Extend this list as validation surfaces more. -----
+loc_urban_named_exception = {
+	OR = {
+		location_key = turpan     # Turpan depression - karez (qanat) oasis, no river
+		location_key = al_ahsa    # Al-Hasa - the world's largest spring oasis
+		location_key = axum       # Aksumite highland capital (tagged mountains, no major river)
+	}
+}
+
+# ============================================================================
+# TOWN
+# ============================================================================
+location_allows_town_final = {
+	loc_is_buildable_land = yes
+	OR = {
+		loc_urban_named_exception = yes
+		# --- temperate: broad; mountains need water; jungle needs water ---
+		AND = {
+			loc_climate_temperate = yes
+			OR = { NOT = { vegetation = jungle }  loc_has_water = yes }
+			OR = {
+				topography = flatland
+				topography = hills
+				topography = plateau
+				topography = wetlands
+				AND = { topography = mountains  loc_has_water = yes }
+			}
+		}
+		# --- tropical: wetlands & mountains need water (disease/terrain); jungle needs water ---
+		AND = {
+			climate = tropical
+			OR = { NOT = { vegetation = jungle }  loc_has_water = yes }
+			OR = {
+				topography = flatland
+				topography = hills
+				topography = plateau
+				AND = { topography = wetlands   loc_has_water = yes }
+				AND = { topography = mountains  loc_has_water = yes }
+			}
+		}
+		# --- arid / cold-arid: highland belt (plateau/hills) + irrigated farmland + water oases ---
+		AND = {
+			loc_climate_arid = yes
+			OR = {
+				topography = plateau
+				topography = hills
+				vegetation = farmland
+				loc_has_water = yes
+				AND = { topography = mountains  loc_has_water = yes }
+			}
+		}
+		# --- arctic: water REQUIRED everywhere; no far-north mountain/qanat cities ---
+		AND = {
+			climate = arctic
+			loc_has_water = yes
+			OR = {
+				topography = flatland
+				topography = hills
+				topography = plateau
+				topography = wetlands
+			}
+		}
+	}
+}
+
+# ============================================================================
+# CITY (a stricter subset of town). Topography-first.
+# ============================================================================
+location_allows_city_final = {
+	location_allows_town_final = yes
+	OR = {
+		loc_urban_named_exception = yes
+		# --- HIGHLANDS (plateau & hills, non-arctic): open terrain (grass/farm/steppe/desert)
+		#     urbanises via springs, qanats, terracing & trade WITHOUT a river - Konya, Ankara,
+		#     Yazd, Isfahan, Tabriz, Bidar, Mysore, Diyarbekir, Madrid. Forested highland needs water. ---
+		AND = {
+			OR = { topography = plateau  topography = hills }
+			NOT = { climate = arctic }
+			OR = {
+				vegetation = grasslands
+				vegetation = farmland
+				vegetation = sparse
+				vegetation = desert
+				AND = { OR = { vegetation = woods  vegetation = forest  vegetation = jungle }  loc_has_water = yes }
+			}
+		}
+		# --- FLATLAND: vegetation & water matter, per climate ---
+		AND = {
+			topography = flatland
+			OR = {
+				AND = {
+					loc_climate_temperate = yes
+					OR = {
+						vegetation = grasslands
+						vegetation = farmland
+						AND = { OR = { vegetation = woods  vegetation = forest }  loc_has_water = yes }        # Vologda-type river towns
+						AND = { OR = { vegetation = sparse  vegetation = desert }  loc_has_strong_water = yes }
+						AND = { vegetation = jungle  loc_has_strong_water = yes }
+					}
+				}
+				AND = { climate = tropical     loc_has_water = yes }                                          # lowland tropical: disease -> needs water
+				AND = { loc_climate_arid = yes  OR = { vegetation = farmland  loc_has_water = yes } }          # Marrakesh (irrigated) / Cairo, Baghdad (river)
+				AND = { climate = arctic       loc_has_water = yes }                                          # Arkhangelsk, Vologda
+			}
+		}
+		# --- WETLANDS: always need water (dykes/drainage on a river or coast) - Venice, Amsterdam, Novgorod ---
+		AND = { topography = wetlands   loc_has_water = yes }
+		# --- MOUNTAINS: only with strong water (river/harbor); never in the arctic - Innsbruck, Cusco ---
+		AND = { topography = mountains  loc_has_strong_water = yes  NOT = { climate = arctic } }
+		# --- ARCTIC highlands: only with strong water (rare) ---
+		AND = { OR = { topography = plateau  topography = hills }  climate = arctic  loc_has_strong_water = yes }
+	}
+}

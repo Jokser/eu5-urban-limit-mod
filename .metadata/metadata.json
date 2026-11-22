@@ -1,0 +1,11 @@
+﻿{
+	"name":	"Urban Limit Reworked",
+	"id":	"urban.limit.rework",
+	"version":	"1.0",
+	"supported_game_version":	"1.4",
+	"short_description":	"Limited, geography-aware urbanization. Each province can still hold only one city and two towns, and where they can grow now depends on climate, rivers, coasts and lakes, and the local resources: desert and tundra stay rural, fertile river valleys and rich trade goods support towns and cities.",
+	"tags":	["Gameplay"],
+	"relationships":	[],
+	"game_custom_data":	{
+	}
+}

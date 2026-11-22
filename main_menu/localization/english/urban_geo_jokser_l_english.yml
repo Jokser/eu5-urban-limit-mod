@@ -1,0 +1,19 @@
+﻿l_english:
+  # One line per climate in the rank-upgrade tooltip (the UI cannot list nested OR conditions).
+  # W = a river, a natural harbour of at least 25% or a lake shore.
+  urban_tt_city_needs_town_geo: "Geography: this location must also be able to support a Town"
+  urban_rule_unsupported: "Geography: this terrain cannot support urban settlement"
+
+  urban_rule_town_arctic: "Arctic climate: a Town needs no mountains AND a natural harbour of at least 25% (a bay) - or a valuable resource (silk, saffron, cotton, gems, silver, gold, incense)"
+  urban_rule_town_subpolar: "Subpolar climate: a Town needs no mountains AND either water (a river, a harbour of at least 25% or a lake shore) or a farming resource (wheat, rice, fruit, millet, legumes, maize, potato) - or a valuable resource"
+  urban_rule_town_continental: "Continental / semi-arid climate: a Town can be founded anywhere except mountains; in mountains it needs water (a river, a harbour of at least 25% or a lake shore) or a valuable resource"
+  urban_rule_town_mild: "Mediterranean / oceanic / subtropical climate: a Town can be founded anywhere"
+  urban_rule_town_arid: "Arid climate: a Town needs water (a river, any sea coast or a lake shore), or - outside mountains - irrigated farmland or a farming resource (wheat, rice, fruit, millet, legumes, maize, potato), or a valuable resource"
+  urban_rule_town_tropical: "Tropical climate: a Town needs no mountains AND one of: water (a river, any sea coast or a lake shore), farmland or grassland, plateau or hills without jungle, a farming resource - or a valuable resource"
+
+  urban_rule_city_arctic: "Arctic climate: Cities cannot be founded"
+  urban_rule_city_subpolar: "Subpolar climate: a City needs flatland, plateau or wetlands AND major water (a river, a harbour of at least 50% or a lake shore) - or a valuable resource (silk, saffron, cotton, gems, silver, gold, incense)"
+  urban_rule_city_continental: "Continental / semi-arid climate: a City needs farmland or grassland, or water (a river, a harbour of at least 25% or a lake shore), or a valuable resource (silk, saffron, cotton, gems, silver, gold, incense)"
+  urban_rule_city_mild: "Mediterranean / oceanic / subtropical climate: a City can be founded anywhere except mountains; in mountains it needs water (a river, a harbour of at least 25% or a lake shore) or a valuable resource"
+  urban_rule_city_arid: "Arid climate: a City needs no mountains AND water (a river, any sea coast or a lake shore) or irrigated farmland - or a valuable resource (silk, saffron, cotton, gems, silver, gold, incense)"
+  urban_rule_city_tropical: "Tropical climate: a City needs no mountains AND water (a river, any sea coast or a lake shore) or farmland or grassland - or a valuable resource (silk, saffron, cotton, gems, silver, gold, incense)"

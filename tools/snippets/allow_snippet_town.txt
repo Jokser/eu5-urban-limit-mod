@@ -1,0 +1,48 @@
+		trigger_if = {
+			limit = { climate = arctic }
+			custom_tooltip = {
+				text = urban_rule_town_arctic
+				urb_town_arctic = yes
+			}
+		}
+		trigger_else_if = {
+			limit = { climate = subpolar }
+			custom_tooltip = {
+				text = urban_rule_town_subpolar
+				urb_town_subpolar = yes
+			}
+		}
+		trigger_else_if = {
+			limit = { urb_clim_continental = yes }
+			custom_tooltip = {
+				text = urban_rule_town_continental
+				urb_town_continental = yes
+			}
+		}
+		trigger_else_if = {
+			limit = { urb_clim_mild = yes }
+			custom_tooltip = {
+				text = urban_rule_town_mild
+				urb_town_mild = yes
+			}
+		}
+		trigger_else_if = {
+			limit = { urb_clim_arid = yes }
+			custom_tooltip = {
+				text = urban_rule_town_arid
+				urb_town_arid = yes
+			}
+		}
+		trigger_else_if = {
+			limit = { climate = tropical }
+			custom_tooltip = {
+				text = urban_rule_town_tropical
+				urb_town_tropical = yes
+			}
+		}
+		trigger_else = {
+			custom_tooltip = {
+				text = urban_rule_unsupported
+				always = no
+			}
+		}
