@@ -44,7 +44,7 @@ Checked against the 1337 start: 36 of the 1067 historical towns and cities fail 
 [list]
 [*][b]Do not use together with the original Urban limit.[/b] They share the same triggers.
 [*]Replaces [i]in_game/common/location_ranks/00_default.txt[/i] whole. Mods that change the same file will conflict.
-[*]The rules only decide upgrades: existing towns and cities keep their rank.
+[*]Save compatible: it can be added to a running game. The rules only decide upgrades, so existing towns and cities keep their rank.
 [/list]
 
 [h2]Credits[/h2]
