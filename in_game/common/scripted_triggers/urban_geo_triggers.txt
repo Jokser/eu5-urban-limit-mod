@@ -117,29 +117,34 @@ urb_town_tropical = {
 }
 
 # ----- CITY (location_allows_city_final also requires the town rule) -----
+# A market center may always become a city (outside the arctic): trade made towns like Nuremberg
+# (woods, no drawn river, sand) great cities regardless of the site.
 urb_city_arctic = { always = no }
 urb_city_subpolar = {
 	OR = {
 		AND = { loc_urb_mountains = no  NOT = { topography = hills }  loc_urb_strong_water = yes }
 		loc_urb_valuable_rgo = yes
+		is_market_center = yes
 	}
 }
 urb_city_continental = {
-	OR = { loc_urb_open_fields = yes  loc_urb_water = yes  loc_urb_valuable_rgo = yes }
+	OR = { loc_urb_open_fields = yes  loc_urb_water = yes  loc_urb_valuable_rgo = yes  is_market_center = yes }
 }
 urb_city_mild = {
-	OR = { loc_urb_mountains = no  loc_urb_water = yes  loc_urb_valuable_rgo = yes }
+	OR = { loc_urb_mountains = no  loc_urb_water = yes  loc_urb_valuable_rgo = yes  is_market_center = yes }
 }
 urb_city_arid = {
 	OR = {
 		AND = { loc_urb_mountains = no  OR = { loc_urb_any_water = yes  vegetation = farmland } }
 		loc_urb_valuable_rgo = yes
+		is_market_center = yes
 	}
 }
 urb_city_tropical = {
 	OR = {
 		AND = { loc_urb_mountains = no  OR = { loc_urb_any_water = yes  loc_urb_open_fields = yes } }
 		loc_urb_valuable_rgo = yes
+		is_market_center = yes
 	}
 }
 

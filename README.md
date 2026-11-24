@@ -7,8 +7,9 @@ location's climate, water access and local resources.
 ## Files
 | File | What |
 |---|---|
-| `in_game/common/scripted_triggers/urban_caps_gate1_triggers_FIXED_SCOPE.txt` | from the original: the per-province caps (gate 1) |
-| `in_game/common/script_values/urban_caps_script_values_v2.txt` | from the original: cap values |
+| `in_game/common/scripted_triggers/urban_caps_gate1_triggers_FIXED_SCOPE.txt` | the per-province caps (gate 1); trigger names from the original, bodies rewritten in v1.1 to use the script values below |
+| `in_game/common/script_values/urban_limit_caps_values.txt` | **ours** (v1.1): caps by province size and the owner's institutions, free slots, burghers in a location |
+| `in_game/common/script_values/urban_caps_script_values_v2.txt` | from the original: town / city counters (unused since v1.1) |
 | `in_game/common/goods_demand/special_construction_demands.txt` | from the original |
 | `main_menu/localization/english/urban_caps_l_english.yml` | from the original: cap tooltips |
 | `in_game/common/scripted_triggers/urban_geo_triggers.txt` | **ours**: the per-climate geography rules (`urb_town_<climate>`, `urb_city_<climate>`, `location_allows_town_final`, `location_allows_city_final`) |
@@ -38,7 +39,39 @@ Exceptions on top of the table:
 - a **food RGO** (wheat, rice, fruit, millet, legumes, maize, potato) allows a town outside mountains and the arctic;
 - a **valuable RGO** (silk, saffron, cotton, gems, silver, gold, incense) allows a town and a city (no city in the arctic).
 
+- a **market center** allows a city (not in the arctic), since v1.1: trade made places like Nuremberg (woods, sand,
+  the Pegnitz not drawn) great cities regardless of the site.
+
 Wetlands have no separate rule (about 89% already have water; canals are not on the map).
+
+## Province caps and the city gate (v1.1, 2026-11-24, experiment)
+Settlements = towns + cities + megalopolises; cities = cities + megalopolises. Each institution the location's OWNER
+has embraced adds its own bonus, in any order:
+
+| Province size (locations) | 1-3 | 4-5 | 6+ |
+|---|---|---|---|
+| base (the original's caps) | 1 (1) | 2 (1) | 3 (1) |
+| + global_trade (age 4) | - | +1 | +1 |
+| + manufactories (age 5) | +1 | second city | second city |
+| + industrialization (age 6) | second city | - | +1 |
+| all three | 2 (2) | 3 (2) | 5 (2) |
+
+(settlements, cities in brackets)
+
+**City gate:** at least **5,000 burghers** in the location (`urb_location_burghers >= 5`) instead of vanilla's
+`population >= 30`, which counts the whole location - peasants and laborers included - so any populous rural district
+qualified.
+
+Why (observer run 6a819256, 1700 save, Europe; history from de Vries 1984, `europop` dataset):
+- 282 European locations had 8,000+ burghers vs 224 historical cities of 10,000+ in 1700, so burghers are a good
+  "real city" signal; total population is not: Great Britain had 40 cities and 10 towns, many of them mining or
+  farming districts (Glossop, Dingwall, Oban, Islay) with 2-6 thousand burghers.
+- A burgher building level holds about 0.155 thousand burghers. A town supports about 40-50 building levels
+  (25 from the rank, +0.05 per thousand pops, +25/50/100% in ages 4/5/6), so 8,000 burghers (~52 levels) was out of
+  reach for almost every town (32 of 687 in Europe); 5,000 (~32 levels) was already met by 160.
+- Historically 1 city of 10k+ per province was the rule; 2-7 occurred only in Holland, Flanders / Brabant, Andalusia,
+  Sicily / Apulia and Provence. Cities of 10k+ in Europe: 154 (1500), 220 (1600), 224 (1700), 364 (1800) - growth in
+  the 16th and 18th centuries, hence the global_trade and manufactories / industrialization steps.
 Validation at design time: 36 of the 1067 start towns / cities fail the rules (accepted). Rivers come from `rivers.png`
 (palette indices 3-15; 12-15 are the large rivers), coast and lakes from `locations.png` adjacency.
 
@@ -50,6 +83,9 @@ Validation at design time: 36 of the 1067 start towns / cities fail the rules (a
   climate rule is ONE `custom_tooltip` line. To confirm in game.
 - 1.0 of **Urban Limit Reworked** (2026-11-22): moved from the patch kit (`Documents\EU5_UrbanLimit_patch`) into this
   standalone mod.
+- 1.1 (2026-11-24, experiment, not yet tested in game): province caps grow with global_trade / manufactories /
+  industrialization; a city needs 5,000 burghers instead of 30,000 total population; market centers may always
+  become cities (outside the arctic).
 
 ## TODO: named exceptions
 Historical cities that the map flags cannot tell from empty desert:
