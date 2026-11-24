@@ -85,7 +85,10 @@ Validation at design time: 36 of the 1067 start towns / cities fail the rules (a
   standalone mod.
 - 1.1 (2026-11-24, experiment, not yet tested in game): province caps grow with global_trade / manufactories /
   industrialization; a city needs 5,000 burghers instead of 30,000 total population; market centers may always
-  become cities (outside the arctic).
+  become cities (outside the arctic). Rank-upgrade goods demand cut to x2 vanilla (town 3/5/3 -> 2/4/2, city
+  8/16/8 -> 4/8/4 glass/masonry/lumber; goods only, the gold price is unchanged), since the burgher gate now filters.
+  First check (1400 save, Europe): no organic upgrade below 5,000 burghers (the two new cities, Vilnius and Lviv, come
+  from flavor events); 32 of 85 cities and 1 town (Nuremberg) had 5,000+ burghers.
 
 ## TODO: named exceptions
 Historical cities that the map flags cannot tell from empty desert:

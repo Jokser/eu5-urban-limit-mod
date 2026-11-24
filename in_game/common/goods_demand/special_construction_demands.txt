@@ -77,21 +77,22 @@ maintain_railroad_demand = {
 	category = building_maintenance
 }
 
-# MOD: Increased costs for town/city construction
+# MOD: Increased costs for town/city construction - x2 vanilla (vanilla 1/2/1; was 3/5/3 until v1.1)
 build_town_demand = {
-	glass   = 3
-	masonry = 5
-	lumber  = 3
+	glass   = 2
+	masonry = 4
+	lumber  = 2
 
 	category = government_activities
 
 }
 
-# MOD: Increased costs for town/city construction
+# MOD: Increased costs for town/city construction - x2 vanilla (vanilla 2/4/2; was 8/16/8 until v1.1 -
+# the 5,000-burgher gate now does the filtering)
 build_city_demand = {
-	glass   = 8
-	masonry = 16
-	lumber  = 8
+	glass   = 4
+	masonry = 8
+	lumber  = 4
 
 	category = government_activities
 

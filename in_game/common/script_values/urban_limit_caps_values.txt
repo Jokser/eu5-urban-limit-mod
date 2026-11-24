@@ -1,4 +1,4 @@
-################################################################################
+﻿################################################################################
 # Urban Limit Reworked - province caps that grow with institutions, and the burgher gate for cities.
 # Used by scripted_triggers/urban_caps_gate1_triggers_FIXED_SCOPE.txt and location_ranks (city allow).
 #
