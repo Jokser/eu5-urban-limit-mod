@@ -1,7 +1,7 @@
 ﻿{
 	"name":	"Urban Limit Reworked",
 	"id":	"urban.limit.rework",
-	"version":	"1.1.1",
+	"version":	"1.1.2",
 	"supported_game_version":	"1.4",
 	"short_description":	"Limited, geography-aware urbanization. Each province holds a limited number of towns and cities, growing with Global Trade, Manufactories and Industrialization; a city needs 5,000 burghers, and where they can grow now depends on climate, rivers, coasts and lakes, and the local resources: desert and tundra stay rural, fertile river valleys and rich trade goods support towns and cities.",
 	"tags":	["Gameplay"],

@@ -1,0 +1,8 @@
+# Urban Limit Reworked - AI urbanization limit. Defines merge per key: only this key is overridden.
+# Vanilla 0.2 lets the AI urbanize at most ceil(0.2 x locations) of a map province, i.e. ONE settlement in every
+# province of 1-5 locations - stricter than our caps (scripted_triggers/urban_caps_gate1_triggers_FIXED_SCOPE.txt).
+# In the 1550 save of run a9738f36 all 308 European provinces of 4-5 locations had exactly one town or city.
+# 0.6 -> 4-5 locations: 3, 6: 4, 8-10: 5-6, so our caps (up to 3 / 5 with the institutions) are the real limit.
+NAI = {
+	AI_PROVINCE_DEFINITION_MAX_URBANIZATION = 0.6	# vanilla 0.2 (max location ratio urbanized per province definition, rounded up)
+}
