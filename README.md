@@ -100,6 +100,14 @@ Fix: use `province_definition` (location link, vanilla `capital.province_definit
 `any_location_in_province_definition` / `every_location_in_province_definition` for size, settlements and cities.
 The AI's own limit is also "per province definition" (`AI_PROVINCE_DEFINITION_MAX_URBANIZATION`). Existing extra
 cities stay (no downgrade). Applied in 1.1.1 (vanilla precedent for the scope: `building_types/unique_buildings.txt`).
+1.1.3: a map province also holds locations with no owner (wastes, uncolonized), which have no rank - `location_rank =`
+logged "Event target link 'location_rank' returned an invalid object" (1216 lines by 1600). Now `location_rank ?=`,
+and the province size counts only owned locations (`exists = owner`), so wastes do not raise the cap.
+
+**Known limitation:** `allow` is checked only when an upgrade STARTS, and an upgrade in progress does not change the
+rank yet, so two upgrades started at about the same time in one map province (e.g. Bohemia and the Upper Lusatian
+free city) can both pass and exceed the cap by one. No trigger detects a rank upgrade in progress
+(`num_civil_constructions` also counts buildings). Rare and harmless: the province is then full. Left as is.
 
 ## AI urbanization limit (1.1.2, 2026-11-24)
 `loading_screen/common/defines/urban_limit_ai_defines.txt`: `NAI: AI_PROVINCE_DEFINITION_MAX_URBANIZATION` 0.2 -> 0.6.
@@ -107,7 +115,11 @@ Vanilla lets the AI urbanize at most ceil(0.2 x locations) of a map province - o
 1-5 locations. In the 1550 save all 308 European provinces of 4-5 locations had exactly one (Bohemia: Prague, Plzen,
 Brno, Olomouc... one each), so our caps were never reached and the institution bonuses could not be used by the AI.
 At 0.6 the AI may go to 3 (4-5 locations), 4 (6), 5-6 (8-10); our caps are the binding limit. Found from the AI's
-own debug strings in the exe ("Too many towns in province definition"). Untested in game.
+own debug strings in the exe ("Too many towns in province definition").
+First result (1600 save, Europe): 206 new towns since 1550, average 27.9k people, 1.8k burghers, development 28 -
+only 21 under 10k people, so no half-empty towns. Bohemia / Moravia / Silesia: 8 -> 17 towns. Cities 256 vs 220
+historical cities of 10k+ (de Vries); Italy and the north German / Low Countries core match, Iberia is short
+(18 vs 37, the Andalusian agro-towns have few burghers), central Europe and Poland run high.
 
 ## TODO: named exceptions
 Historical cities that the map flags cannot tell from empty desert:
