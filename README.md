@@ -101,6 +101,14 @@ Fix: use `province_definition` (location link, vanilla `capital.province_definit
 The AI's own limit is also "per province definition" (`AI_PROVINCE_DEFINITION_MAX_URBANIZATION`). Existing extra
 cities stay (no downgrade). Applied in 1.1.1 (vanilla precedent for the scope: `building_types/unique_buildings.txt`).
 
+## AI urbanization limit (1.1.2, 2026-11-24)
+`loading_screen/common/defines/urban_limit_ai_defines.txt`: `NAI: AI_PROVINCE_DEFINITION_MAX_URBANIZATION` 0.2 -> 0.6.
+Vanilla lets the AI urbanize at most ceil(0.2 x locations) of a map province - one settlement in every province of
+1-5 locations. In the 1550 save all 308 European provinces of 4-5 locations had exactly one (Bohemia: Prague, Plzen,
+Brno, Olomouc... one each), so our caps were never reached and the institution bonuses could not be used by the AI.
+At 0.6 the AI may go to 3 (4-5 locations), 4 (6), 5-6 (8-10); our caps are the binding limit. Found from the AI's
+own debug strings in the exe ("Too many towns in province definition"). Untested in game.
+
 ## TODO: named exceptions
 Historical cities that the map flags cannot tell from empty desert:
 - cities in the 1337 setup that fail the CITY rule: Sijilmasa (also fails town), Timbuktu (also fails town; the Niger
