@@ -90,8 +90,8 @@ Validation at design time: 36 of the 1067 start towns / cities fail the rules (a
   First check (1400 save, Europe): no organic upgrade below 5,000 burghers (the two new cities, Vilnius and Lviv, come
   from flavor events); 32 of 85 cities and 1 town (Nuremberg) had 5,000+ burghers.
 
-## TODO: count the caps per MAP province (province_definition), not per owner's province (found 2026-11-24)
-`urban_limit_caps_values.txt` counts size, settlements and cities through the location's `province`, which in EU5 is
+## FIXED (1.1.1, 2026-11-24): the caps count per MAP province (province_definition), not per owner's province
+Until 1.1.1 `urban_limit_caps_values.txt` counted size, settlements and cities through the location's `province`, which in EU5 is
 the OWNER's administrative province: a map province split between two countries is two `province`s. So each owner gets
 its own slots, and the size used for the cap is only that owner's part. Seen in the 1550 save (run a9738f36): second
 cities with no institution embraced anywhere - Lodi (LDI) next to Cremona (MLO), Chioggia (FER) next to Venice (VEN),
@@ -99,7 +99,7 @@ Macerata and Ascoli (NAP) next to Ancona (FER). Treviso (VEN, same `province` as
 Fix: use `province_definition` (location link, vanilla `capital.province_definition`) with
 `any_location_in_province_definition` / `every_location_in_province_definition` for size, settlements and cities.
 The AI's own limit is also "per province definition" (`AI_PROVINCE_DEFINITION_MAX_URBANIZATION`). Existing extra
-cities stay (no downgrade). Apply when the game is closed.
+cities stay (no downgrade). Applied in 1.1.1 (vanilla precedent for the scope: `building_types/unique_buildings.txt`).
 
 ## TODO: named exceptions
 Historical cities that the map flags cannot tell from empty desert:

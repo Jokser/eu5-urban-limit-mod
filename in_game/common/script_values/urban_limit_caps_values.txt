@@ -15,10 +15,10 @@
 #   (settlements, cities in brackets)
 ################################################################################
 
-# ---- province scope: counts ----
-urb_prov_settlements = {
+# ---- province_definition scope (the MAP province, all owners together): counts ----
+urb_pd_settlements = {
 	value = 0
-	every_location_in_province = {
+	every_location_in_province_definition = {
 		limit = {
 			OR = {
 				location_rank = location_rank:town
@@ -30,9 +30,9 @@ urb_prov_settlements = {
 	}
 }
 
-urb_prov_cities = {
+urb_pd_cities = {
 	value = 0
-	every_location_in_province = {
+	every_location_in_province_definition = {
 		limit = {
 			OR = {
 				location_rank = location_rank:city
@@ -43,11 +43,13 @@ urb_prov_cities = {
 	}
 }
 
-# ---- location scope: caps for the province of this location, from its owner's institutions ----
+# ---- location scope: caps for the MAP province of this location (province_definition), from the location owner's institutions.
+# (Until 2026-11-24 this used `province` = the owner's administrative province, so a map province split between
+#  owners gave every owner its own slots - Lodi next to Cremona, Chioggia next to Venice.) ----
 urb_cap_settlements = {
 	value = 1
 	if = {
-		limit = { province = { any_location_in_province = { always = yes count >= 6 } } }
+		limit = { province_definition = { any_location_in_province_definition = { always = yes count >= 6 } } }
 		value = 3
 		if = {
 			limit = { owner ?= { has_embraced_institution = institution:global_trade } }
@@ -59,7 +61,7 @@ urb_cap_settlements = {
 		}
 	}
 	else_if = {
-		limit = { province = { any_location_in_province = { always = yes count >= 4 } } }
+		limit = { province_definition = { any_location_in_province_definition = { always = yes count >= 4 } } }
 		value = 2
 		if = {
 			limit = { owner ?= { has_embraced_institution = institution:global_trade } }
@@ -77,7 +79,7 @@ urb_cap_settlements = {
 urb_cap_cities = {
 	value = 1
 	if = {
-		limit = { province = { any_location_in_province = { always = yes count >= 4 } } }
+		limit = { province_definition = { any_location_in_province_definition = { always = yes count >= 4 } } }
 		if = {
 			limit = { owner ?= { has_embraced_institution = institution:manufactories } }
 			add = 1
@@ -93,12 +95,12 @@ urb_cap_cities = {
 
 urb_free_settlement_slots = {
 	value = urb_cap_settlements
-	subtract = province.urb_prov_settlements
+	subtract = province_definition.urb_pd_settlements
 }
 
 urb_free_city_slots = {
 	value = urb_cap_cities
-	subtract = province.urb_prov_cities
+	subtract = province_definition.urb_pd_cities
 }
 
 # ---- location scope: burghers living here (pop sizes are in thousands) ----
