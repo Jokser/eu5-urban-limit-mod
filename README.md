@@ -62,6 +62,12 @@ has embraced adds its own bonus, in any order:
 `population >= 30`, which counts the whole location - peasants and laborers included - so any populous rural district
 qualified.
 
+**Megalopolis gate (1.1.4):** at least **25,000 burghers** (`urb_location_burghers >= 25`) instead of vanilla's
+`population >= 400`; vanilla's market center, capital and independent owner stay. About 153 market centers exist
+worldwide (94 of them capitals), so the rank stays rare: in the 1700 save of run a9738f36 only Naples and Venice
+qualified in Europe (Constantinople is a megalopolis from the start). Burghers are flat across big cities (Paris 9.9k,
+London 18.2k, Amsterdam 6.7k in that save) - the AI does not build them up; a player can.
+
 Why (observer run 6a819256, 1700 save, Europe; history from de Vries 1984, `europop` dataset):
 - 282 European locations had 8,000+ burghers vs 224 historical cities of 10,000+ in 1700, so burghers are a good
   "real city" signal; total population is not: Great Britain had 40 cities and 10 towns, many of them mining or

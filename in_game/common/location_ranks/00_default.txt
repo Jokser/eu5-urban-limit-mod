@@ -54,7 +54,11 @@ megalopolis = {
 	
 	upgrade_from = city
 	allow = {
-		population >= 400.000
+		# Urban Limit Reworked: burghers, not total population (vanilla: population >= 400)
+		custom_tooltip = {
+			text = urban_tt_megalopolis_burghers
+			urb_location_burghers >= 25
+		}
 		modifier:cannot_upgrade_location = no
 		is_market_center = yes
 		is_capital = yes

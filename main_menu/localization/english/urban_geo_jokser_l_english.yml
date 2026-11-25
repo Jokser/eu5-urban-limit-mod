@@ -3,6 +3,7 @@
   # W = a river, a natural harbour of at least 25% or a lake shore.
   urban_tt_city_needs_town_geo: "Geography: this location must also be able to support a Town"
   urban_tt_city_burghers: "Burghers: a City needs at least 5,000 burghers living in the location"
+  urban_tt_megalopolis_burghers: "Burghers: a Megalopolis needs at least 25,000 burghers living in the location"
   urban_rule_unsupported: "Geography: this terrain cannot support urban settlement"
 
   urban_rule_town_arctic: "Arctic climate: a Town needs no mountains AND a natural harbour of at least 25% (a bay) - or a valuable resource (silk, saffron, cotton, gems, silver, gold, incense)"
