@@ -1,51 +1,53 @@
 [h1]Urban Limit Reworked[/h1]
 
-In vanilla, every location can sooner or later become a town or a city, and by the late game whole countries are covered in them. This mod keeps urbanization limited and makes it follow geography: towns and cities grow where climate, water and local resources could historically support them, and deserts, tundra and bare mountains stay rural.
+In vanilla, any populous rural district can become a city, and by the late game whole countries are covered in half-empty towns. This mod keeps urbanization limited and believable: a city has to be a real urban place, a province holds only so many towns, and towns grow only where geography could support them.
 
-It is a rework of [b]Urban limit[/b] by [b]Emperor VI[/b] (part of his Total Realism Mod). The idea and the province caps come from the original: cities do not grow everywhere, only where conditions allow them. The geography rules are rewritten.
-
-[h2]What changed compared with Urban limit[/h2]
+[h2]What makes a city[/h2]
 [list]
-[*][b]One clear rule per climate[/b] instead of separate terrain, vegetation and climate gates. Each of the game's climates has its own conditions for a town and for a city.
-[*][b]Water matters:[/b] rivers, harbours and lake shores let towns and cities grow in places that would otherwise be too harsh, as the river valleys and ports of history did.
-[*][b]Local resources matter:[/b] farming land feeds market towns, and trade goods such as silk, saffron, incense or silver build cities even in hard country.
-[*][b]Tooltips explain the rule[/b] for the location's climate when an upgrade is not allowed.
-[*][b]The location rank file follows the current game version[/b], so no vanilla rank bonuses are lost.
+[*][b]City: 5,000 burghers[/b] living in the location, instead of 30,000 total population. Vanilla counted peasants and laborers too, so mining and farming districts became "cities" while real burgher towns with little countryside could not.
+[*][b]Megalopolis: 25,000 burghers[/b], plus the vanilla conditions: a market center, the capital, an independent country. A rare rank for the great trade capitals.
+[*][b]Town:[/b] the vanilla population requirement, plus the geography rules below.
+[*]Existing towns and cities keep their rank. The rules only decide new upgrades.
 [/list]
 
-[h2]Province caps (from the original)[/h2]
-[list]
-[*]A province with 1-3 locations can have one urban centre: a city or a town.
-[*]A province with 4-5 locations can have one city and one town.
-[*]A province with 6 or more locations can have one city and up to two towns.
-[/list]
-Large empires cannot turn every location into a city.
-
-[h2]Geography: one rule per climate[/h2]
-Water means a river, a harbour of at least 0.25 or a lake shore. "Any water" also counts a plain sea coast.
+[h2]Province caps that grow with time[/h2]
+Caps count the whole map province, across all owners. In brackets: how many of the settlements may be cities.
 [table]
-[tr][th]Climate[/th][th]Town[/th][th]City[/th][/tr]
-[tr][td]Arctic[/td][td]not in mountains, with a good harbour[/td][td]never[/td][/tr]
-[tr][td]Subpolar[/td][td]not in mountains, with water[/td][td]flat land, plateau or wetlands, with a river, a good harbour or a lake[/td][/tr]
-[tr][td]Continental, semi-arid[/td][td]anywhere but bare mountains; mountains need water[/td][td]farmland or grassland, or water[/td][/tr]
-[tr][td]Mediterranean, oceanic, subtropical[/td][td]anywhere[/td][td]not in mountains, or mountains with water[/td][/tr]
-[tr][td]Arid, cold arid[/td][td]any water, or farmland outside mountains[/td][td]not in mountains, with any water or farmland[/td][/tr]
-[tr][td]Tropical[/td][td]not in mountains, with any water, farmland or grassland, or open hills and plateaus[/td][td]not in mountains, with any water, farmland or grassland[/td][/tr]
+[tr][th]Locations in province[/th][th]1-3[/th][th]4-5[/th][th]6+[/th][/tr]
+[tr][td]Base[/td][td]1 (1)[/td][td]2 (1)[/td][td]3 (1)[/td][/tr]
+[tr][td]+ Global Trade[/td][td]-[/td][td]+1 settlement[/td][td]+1 settlement[/td][/tr]
+[tr][td]+ Manufactories[/td][td]+1 settlement[/td][td]second city[/td][td]second city[/td][/tr]
+[tr][td]+ Industrialization[/td][td]second city[/td][td]-[/td][td]+1 settlement[/td][/tr]
+[tr][td]All three[/td][td]2 (2)[/td][td]3 (2)[/td][td]5 (2)[/td][/tr]
 [/table]
+Each institution the owner has embraced adds its own bonus.
 
-Two exceptions on top of the table:
+The AI's own hard limit (one settlement in any province of up to 5 locations) is relaxed, so the AI can actually use these caps. Upgrade goods costs are 2x vanilla.
+
+[h2]Geography[/h2]
+Each climate has its own rule for towns and for cities. Rivers, good harbours and lake shores let towns grow in harsh land. Farming resources feed market towns. Valuable trade goods (silk, saffron, cotton, gems, silver, gold, incense) build cities even in hard country. Deserts, tundra and bare mountains mostly stay rural. A [b]market center[/b] can always become a city outside the arctic: trade made places like Nuremberg great regardless of the site. The upgrade tooltip shows the rule for the location's climate.
+
+[h2]Tested against history[/h2]
+Observer runs from 1337 to 1800 were compared with Jan de Vries, [i]European Urbanization 1500-1800[/i]: the number of European cities with 10,000+ inhabitants.
+[table]
+[tr][th]Year[/th][th]1500[/th][th]1550[/th][th]1600[/th][th]1700[/th][th]1800[/th][/tr]
+[tr][td]Cities in game (Europe)[/td][td]127[/td][td]186[/td][td]256[/td][td]434[/td][td]581[/td][/tr]
+[tr][td]Cities 10k+ (de Vries)[/td][td]154[/td][td]~180[/td][td]220[/td][td]224[/td][td]364[/td][/tr]
+[/table]
 [list]
-[*]A [b]food resource[/b] (wheat, rice, fruit, millet, legumes, maize, potato) allows a town outside mountains and the arctic: a fertile oasis or river valley feeds a market town.
-[*]A [b]valuable resource[/b] (silk, saffron, cotton, gems, silver, gold, incense) allows a town and a city (no city in the arctic): trade wealth builds cities even in hard country.
+[*]Up to 1600 the game follows history closely. Italy and the German / Low Countries core match almost one to one.
+[*]After 1650 the game keeps growing while real Europe stagnated (the 17th-century crisis), so the late game runs higher. The same happened with the old population rule. The gap narrows again in the 18th century.
+[*]No "fake" cities: by 1800 no city has fewer than 3,000 burghers, and new towns founded by the AI average about 25,000 people, not empty villages.
+[*]Megalopolises stay rare: by 1800 only Constantinople, Naples, Prague and Krakow in Europe.
 [/list]
-Checked against the 1337 start: 36 of the 1067 historical towns and cities fail the rules, mostly oases and desert trade cities whose rivers or wells are not on the map. They keep their rank; the rules only decide new upgrades.
+A perfect match is not possible with the game's economy and AI. The goal is a believable middle between no cities and every location urbanized.
 
 [h2]Compatibility[/h2]
 [list]
-[*][b]Do not use together with the original Urban limit.[/b] They share the same triggers.
-[*]Replaces [i]in_game/common/location_ranks/00_default.txt[/i] whole. Mods that change the same file will conflict.
-[*]Save compatible: it can be added to a running game. The rules only decide upgrades, so existing towns and cities keep their rank.
+[*][b]Do not use together with the original Urban limit.[/b] They share some triggers.
+[*]Replaces [i]in_game/common/location_ranks/00_default.txt[/i] (generated from the current game version). Mods that change the same file will conflict.
+[*]Save compatible: it can be added to a running game.
 [/list]
 
 [h2]Credits[/h2]
-Province caps, their tooltips and the original idea: [b]Urban limit[/b] by [b]Emperor VI[/b].
+Based on the idea and the province caps of [b]Urban limit[/b] by [b]Emperor VI[/b] (Total Realism Mod). Historical data: J. de Vries (1984), via the [i]europop[/i] dataset.
