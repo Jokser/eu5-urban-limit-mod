@@ -1,5 +1,7 @@
 Add-Type -AssemblyName System.Drawing
-$out = Join-Path (Split-Path -Parent $PSScriptRoot) '.metadata	humbnail.png'
+# Urban Limit Reworked - draws the Workshop thumbnail (512x512) into .metadata\thumbnail.png.
+# Run: powershell -ExecutionPolicy Bypass -File tools\make_icon.ps1
+$out = Join-Path (Split-Path -Parent $PSScriptRoot) '.metadata\thumbnail.png'
 $S = 512
 $bmp = New-Object System.Drawing.Bitmap($S, $S)
 $g = [System.Drawing.Graphics]::FromImage($bmp)
